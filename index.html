@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>双拼练习</title>
+    <style>
+        .box{
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .span{
+            color: #999;
+        }
+        input{
+            outline:none;
+            height: 40px;
+            font-size: 20px;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="box" id="box">
+            <h1>小鹤双拼键位练习</h1>
+            <h3 id="origin"></h3>
+            <span class="span">输入与之相应的键位</span>
+            <input type="text" id="inp" placeholder="输入与之相应的键位">
+        </div>
+    </div>
+    <script>
+        const pinpin = ["iu","ei","uan","ue","ve","un","sh","ch","uo","ie","iong","ong","ai","en","eng","ang","an","ing","uai","iang","uang","ou","ia","ua","ao","ui","zh","in","iao","ian"]
+        const key = ["q",'w','r',"t","t","y",'u','i','o',"p",'s','s','d','f','g','h','j','k','k','l','l','z','x','x','c','v','v','b','n','m']
+        const box = document.getElementById('box')
+        const inp = document.getElementById('inp')
+        let origin = document.getElementById('origin')
+        let useArr = 0
+        let originIndex = 0
+        let answer = ''
+        inp.addEventListener("input",(e)=>{
+            console.log(answer);
+            if(inp.value == answer){
+                getRand()
+                box.style.backgroundColor = "green"
+
+                setTimeout(()=>{
+                    inp.value = ''
+                    box.style.backgroundColor = "white"
+                },200)
+            }else{
+                if(inp.value.trim() == "") return
+                box.style.backgroundColor = "red"
+            }
+           
+        })
+        inp.addEventListener("keyup",(e)=>{
+            if(e.keyCode == 13){
+               box.style.backgroundColor = "green"
+            }
+        })
+        function getRand(){
+            if(Math.random()<0.5){
+                useArr = 0
+                originIndex = Math.floor(Math.random()*pinpin.length)
+                origin.innerText =pinpin[originIndex]
+                answer = key[originIndex]
+            }else{
+                useArr = 1
+                originIndex = Math.floor(Math.random()*key.length)
+                origin.innerText =key[originIndex]
+                answer = pinpin[originIndex]
+            }
+        }
+        window.onload = getRand
+    </script>
+</body>
+</html>
